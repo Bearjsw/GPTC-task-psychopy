@@ -1,0 +1,16 @@
+﻿participant_id,timestamp,position,source_a,source_b,pair_key,similarity,rt
+GPTC001,2026-08-11T19:33:28.914,1,ad,peer,ad_peer,4,4.8735
+GPTC001,2026-08-11T19:33:30.449,2,peer,gpt,gpt_peer,4,0.8663
+GPTC001,2026-08-11T19:33:31.844,3,expert,peer,expert_peer,4,0.7119
+GPTC001,2026-08-11T19:33:33.164,4,gpt,consensus,consensus_gpt,4,0.6813
+GPTC001,2026-08-11T19:33:34.434,5,expert,ad,ad_expert,4,0.5934
+GPTC001,2026-08-11T19:33:35.688,6,expert,consensus,consensus_expert,4,0.5725
+GPTC001,2026-08-11T19:33:36.998,7,consensus,ad,ad_consensus,4,0.6472
+GPTC001,2026-08-11T19:33:38.222,8,search,ad,ad_search,4,0.54
+GPTC001,2026-08-11T19:33:39.430,9,peer,consensus,consensus_peer,4,0.5551
+GPTC001,2026-08-11T19:33:40.744,10,gpt,expert,expert_gpt,4,0.6382
+GPTC001,2026-08-11T19:33:41.901,11,ad,gpt,ad_gpt,4,0.5079
+GPTC001,2026-08-11T19:33:43.090,12,expert,search,expert_search,4,0.5375
+GPTC001,2026-08-11T19:33:44.283,13,peer,search,peer_search,4,0.5388
+GPTC001,2026-08-11T19:33:45.583,14,search,consensus,consensus_search,4,0.6369
+GPTC001,2026-08-11T19:33:47.265,15,gpt,search,gpt_search,4,1.0049

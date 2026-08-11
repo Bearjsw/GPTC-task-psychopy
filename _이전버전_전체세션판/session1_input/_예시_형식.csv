@@ -1,0 +1,13 @@
+﻿# 세션 1 결과 예시. 실제로는 <참가자ID>.csv 로 저장한다.
+# excluded = 관심도가 낮아 본 과제에서 뺄 제품군 (config.N_EXCLUDED_CATEGORIES 개)
+# interest = 제품군별 관심도 1~7 (기록용, 없어도 된다)
+excluded,toothbrush
+excluded,backpack
+interest,bt_speaker,6
+interest,keyboard,5
+interest,toothbrush,2
+interest,massage_roller,4
+interest,chair_seat,5
+interest,laptop_stand,6
+interest,backpack,2
+interest,windbreaker,4

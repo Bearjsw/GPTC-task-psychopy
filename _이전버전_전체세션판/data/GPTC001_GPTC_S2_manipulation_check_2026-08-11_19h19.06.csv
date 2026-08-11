@@ -1,0 +1,8 @@
+﻿participant_id,timestamp,position,check,source_code,response,correct,rt
+GPTC001,2026-08-11T19:39:50.152,1,source_recall,gpt,구매자 수백 명의 후기를 모아 가장 만족도가 높은 것을 골라 준다,0,11.3103
+GPTC001,2026-08-11T19:39:51.182,2,source_recall,expert,여러 제품을 직접 검토한 뒤 그중 나은 것을 골라 준다,1,0.596
+GPTC001,2026-08-11T19:39:52.092,3,source_recall,consensus,알고리즘이 산출한 검색 순위에서 상위에 오른 것을 보여 준다,0,0.4783
+GPTC001,2026-08-11T19:39:52.776,4,source_recall,peer,여러 제품을 직접 검토한 뒤 그중 나은 것을 골라 준다,0,0.2552
+GPTC001,2026-08-11T19:39:54.061,5,source_recall,search,구매자 수백 명의 후기를 모아 가장 만족도가 높은 것을 골라 준다,0,0.8428
+GPTC001,2026-08-11T19:39:54.598,6,source_recall,ad,판매 회사가 자사 제품 중에서 골라 준다,1,0.0928
+GPTC001,2026-08-11T19:39:55.239,7,search_no_paid_ranking,search,아니오,1,0.2247

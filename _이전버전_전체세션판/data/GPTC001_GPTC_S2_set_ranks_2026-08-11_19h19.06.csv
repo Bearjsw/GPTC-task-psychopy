@@ -1,0 +1,36 @@
+﻿participant_id,timestamp,set_key,category_code,rank,brand,axis,rt,source
+GPTC001,2026-08-11T19:20:20.188,laptop_stand_s3,laptop_stand,1,cBoCV,휴대성,10.5627,in_session
+GPTC001,2026-08-11T19:20:22.188,laptop_stand_s3,laptop_stand,2,LpceQ,지지력,1.9631,in_session
+GPTC001,2026-08-11T19:20:24.871,chair_seat_s3,chair_seat,1,qsGIF,자세,2.1436,in_session
+GPTC001,2026-08-11T19:20:26.222,chair_seat_s3,chair_seat,2,ajAtg,통기성,1.3211,in_session
+GPTC001,2026-08-11T19:20:35.040,toothbrush_s3,toothbrush,1,wUvW,세정력,8.2788,in_session
+GPTC001,2026-08-11T19:20:36.688,toothbrush_s3,toothbrush,2,YaUjk,세기 조절,1.6196,in_session
+GPTC001,2026-08-11T19:20:38.389,keyboard_s3,keyboard,1,dOeJH,무선 연결,1.1705,in_session
+GPTC001,2026-08-11T19:20:39.539,keyboard_s3,keyboard,2,GQikf,배터리,1.1223,in_session
+GPTC001,2026-08-11T19:20:42.355,bt_speaker_s2,bt_speaker,1,xpgV,페어링,2.2994,in_session
+GPTC001,2026-08-11T19:20:43.413,bt_speaker_s2,bt_speaker,2,sitZ,사운드,1.0294,in_session
+GPTC001,2026-08-11T19:20:45.540,keyboard_s2,keyboard,1,nqJy,배터리,1.6969,in_session
+GPTC001,2026-08-11T19:20:55.086,keyboard_s2,keyboard,2,fmZVa,타건음,9.5155,in_session
+GPTC001,2026-08-11T19:20:56.945,windbreaker_s2,windbreaker,1,Buezp,보온,1.4097,in_session
+GPTC001,2026-08-11T19:20:58.343,windbreaker_s2,windbreaker,2,xoyz,방수,1.3719,in_session
+GPTC001,2026-08-11T19:20:59.907,bt_speaker_s1,bt_speaker,1,iOAw,페어링,1.1332,in_session
+GPTC001,2026-08-11T19:21:01.026,bt_speaker_s1,bt_speaker,2,zfVg,사운드,1.0894,in_session
+GPTC001,2026-08-11T19:21:02.410,toothbrush_s2,toothbrush,1,aTqAR,세기 조절,0.933,in_session
+GPTC001,2026-08-11T19:21:04.643,toothbrush_s2,toothbrush,2,eizq,잇몸 관리,2.2084,in_session
+GPTC001,2026-08-11T19:21:07.093,laptop_stand_s1,laptop_stand,1,ZQUqG,지지력,2.0221,in_session
+GPTC001,2026-08-11T19:21:08.074,laptop_stand_s1,laptop_stand,2,BnOS,휴대성,0.959,in_session
+GPTC001,2026-08-11T19:21:09.632,bt_speaker_s3,bt_speaker,1,ILKX,사운드,1.1027,in_session
+GPTC001,2026-08-11T19:21:10.593,bt_speaker_s3,bt_speaker,2,UzMru,배터리,0.9289,in_session
+GPTC001,2026-08-11T19:21:11.743,windbreaker_s1,windbreaker,1,vYXp,보온,0.7052,in_session
+GPTC001,2026-08-11T19:21:12.759,windbreaker_s1,windbreaker,2,JGNi,경량,0.9874,in_session
+GPTC001,2026-08-11T19:21:14.900,windbreaker_s3,windbreaker,1,jIDYy,보온,1.7112,in_session
+GPTC001,2026-08-11T19:21:48.162,toothbrush_s1,toothbrush,1,PGZiV,세기 조절,2.7747,in_session
+GPTC001,2026-08-11T19:21:50.326,toothbrush_s1,toothbrush,2,fQQK,세정력,2.138,in_session
+GPTC001,2026-08-11T19:21:54.712,laptop_stand_s2,laptop_stand,1,QKls,휴대성,3.9346,in_session
+GPTC001,2026-08-11T19:21:55.718,laptop_stand_s2,laptop_stand,2,AjbLT,지지력,0.9718,in_session
+GPTC001,2026-08-11T19:21:56.883,chair_seat_s2,chair_seat,1,ACzS,착석감,0.7209,in_session
+GPTC001,2026-08-11T19:21:57.947,chair_seat_s2,chair_seat,2,OMtW,통기성,1.035,in_session
+GPTC001,2026-08-11T19:21:59.246,chair_seat_s1,chair_seat,1,fPzpO,자세,0.8538,in_session
+GPTC001,2026-08-11T19:21:59.928,chair_seat_s1,chair_seat,2,vSXNA,통기성,0.6505,in_session
+GPTC001,2026-08-11T19:22:01.482,keyboard_s1,keyboard,1,nzIR,배터리,1.1186,in_session
+GPTC001,2026-08-11T19:22:02.327,keyboard_s1,keyboard,2,xLmI,타건음,0.8138,in_session

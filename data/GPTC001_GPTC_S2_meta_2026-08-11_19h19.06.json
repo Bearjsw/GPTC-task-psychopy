@@ -1,0 +1,21 @@
+{
+  "participant_id": "GPTC001",
+  "experiment": "GPTC_S2",
+  "started": "2026-08-11T19:19:06",
+  "age": "23",
+  "sex": "여",
+  "font": "NanumGothic",
+  "frame_rate": 59.978899416129394,
+  "session1_source": "in_session",
+  "excluded_categories": [
+    "massage_roller",
+    "backpack"
+  ],
+  "n_main_trials": 36,
+  "n_practice_trials": 2,
+  "phase_order": "decision-info",
+  "completed": false,
+  "ended": "2026-08-11T19:40:01",
+  "duration_min": 20.91,
+  "note": "실험자 종료"
+}

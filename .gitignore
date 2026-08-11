@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+*.pyo
+
+# 실제 수집 데이터는 올리지 않는다. 저장소에 있는 것은 시연용 실행 결과뿐이다.
+data/*.csv
+data/*.json
+!data/DEMO*
+!data/GPTC001_*

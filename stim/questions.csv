@@ -1,0 +1,9 @@
+﻿block,item_id,dimension,text,left_anchor,right_anchor
+phase_rating,pr1,overall,그 단계에서 {src}{이/가} 준 정보를 신뢰했다.,전혀 그렇지 않다,매우 그렇다
+phase_rating,pr2,ability,그 단계에서 {src}{은/는} 그 제품들에 대해 제대로 알고 있다고 느꼈다.,전혀 그렇지 않다,매우 그렇다
+phase_rating,pr3,ability,그 단계에서 {src}{은/는} 좋은 제품을 가려낼 만한 판단력이 있다고 느꼈다.,전혀 그렇지 않다,매우 그렇다
+phase_rating,pr4,benevolence,그 단계에서 {src}{은/는} 사실대로 알려 준다고 느꼈다.,전혀 그렇지 않다,매우 그렇다
+phase_rating,pr5,benevolence,그 단계에서 {src}{은/는} 나에게 이득이 되는 쪽을 알려 준다고 느꼈다.,전혀 그렇지 않다,매우 그렇다
+processing,pm1,effort,과제를 하는 동안 화면에 나온 제품 정보를 꼼꼼히 읽었다.,전혀 그렇지 않다,매우 그렇다
+processing,pm2,effort,과제를 하는 동안 어느 정보원이 추천했는지에 신경을 썼다.,전혀 그렇지 않다,매우 그렇다
+processing,pm3,involvement,실제로 사는 상황이라고 생각하면서 답했다.,전혀 그렇지 않다,매우 그렇다

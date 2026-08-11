@@ -1,0 +1,37 @@
+﻿participant_id,timestamp,trial_number,block,set_key,category_code,category_kr,set_id,source_code,source_label,repetition,rec_brand,rec_rank,price,priming,display_order,detail_lines
+GPTC001,2026-08-11T19:22:02.721,1,main,laptop_stand_s1,laptop_stand,노트북 거치대,1,gpt,[ChatGPT],1,ZQUqG,1,32000,UT,0-1-2,4kg까지 흔들리지 않는 지지 | 케이블 정리 홈 | 15.6인치까지 대응
+GPTC001,2026-08-11T19:22:02.723,2,main,windbreaker_s2,windbreaker,바람막이,2,ad,[광고],2,Buezp,1,43000,UT,2-1-0,목까지 올라오는 깃 | 야간용 반사 테이프 | 세탁기 사용 가능
+GPTC001,2026-08-11T19:22:02.726,3,main,windbreaker_s3,windbreaker,바람막이,3,expert,[전문가],2,tcoU,2,49000,HE,2-1-0,접어서 손바닥에 들어가는 부피 | 로고 없는 앞면 | 도심에서 입기 좋은 실루엣
+GPTC001,2026-08-11T19:22:02.726,4,main,chair_seat_s3,chair_seat,자세교정 방석,3,consensus,[다수 의견],1,qsGIF,1,48000,HE,0-2-1,등받이 없이도 허리가 서는 각도 | 겉면 니트 마감 | 사무실에 무난한 무채색
+GPTC001,2026-08-11T19:22:02.726,5,main,keyboard_s1,keyboard,저소음 무선 키보드,1,search,[검색엔진],2,xLmI,2,34000,UT,1-2-0,도서관에서도 눈치 안 보이는 타건음 | 키캡 교체 부품 동봉 | 윈도우·맥 양쪽 지원
+GPTC001,2026-08-11T19:22:02.726,6,main,bt_speaker_s3,bt_speaker,블루투스 스피커,3,ad,[광고],2,PyeWz,3,48900,HE,1-0-2,앱 없이 끝나는 초기 설정 | 겉면 패브릭 마감 | 손에 감기는 원통 형태
+GPTC001,2026-08-11T19:22:02.726,7,main,chair_seat_s1,chair_seat,자세교정 방석,1,search,[검색엔진],1,jrQKl,3,35000,UT,1-2-0,오래 앉아도 눌리지 않는 고밀도 폼 | 커버 분리 세탁 가능 | 2년 형태 보증
+GPTC001,2026-08-11T19:22:02.726,8,main,windbreaker_s1,windbreaker,바람막이,1,consensus,[다수 의견],2,vYXp,1,36000,UT,1-2-0,안감을 덧댄 환절기 보온 | 야간용 반사 테이프 | 세탁기 사용 가능
+GPTC001,2026-08-11T19:22:02.726,9,main,laptop_stand_s1,laptop_stand,노트북 거치대,1,expert,[전문가],2,ZQUqG,1,32000,UT,0-1-2,4kg까지 흔들리지 않는 지지 | 케이블 정리 홈 | 15.6인치까지 대응
+GPTC001,2026-08-11T19:22:02.726,10,main,windbreaker_s2,windbreaker,바람막이,2,peer,[가까운 지인],1,Buezp,1,43000,UT,2-1-0,목까지 올라오는 깃 | 야간용 반사 테이프 | 세탁기 사용 가능
+GPTC001,2026-08-11T19:22:02.726,11,main,keyboard_s2,keyboard,저소음 무선 키보드,2,peer,[가까운 지인],2,nqJy,1,41000,HE,2-0-1,한 번 충전에 3개월 | 손목이 편한 낮은 경사 | 두 가지 색을 섞은 키캡
+GPTC001,2026-08-11T19:22:02.726,12,main,bt_speaker_s1,bt_speaker,블루투스 스피커,1,consensus,[다수 의견],2,zfVg,2,36900,HE,1-2-0,저음이 두껍게 깔리는 소리 | 네 가지 색상 구성 | 손에 감기는 원통 형태
+GPTC001,2026-08-11T19:22:02.726,13,main,toothbrush_s1,toothbrush,전동 칫솔,1,gpt,[ChatGPT],2,PGZiV,1,33000,HE,2-0-1,세기 5단계 조절 | 물때가 덜 보이는 무광 마감 | 손에 감기는 굴곡 손잡이
+GPTC001,2026-08-11T19:22:02.727,14,main,laptop_stand_s3,laptop_stand,노트북 거치대,3,peer,[가까운 지인],1,LpceQ,2,45000,HE,2-1-0,두 축으로 버티는 삼각 구조 | 책상에 어울리는 무광 마감 | 두 가지 색상 구성
+GPTC001,2026-08-11T19:22:02.727,15,main,chair_seat_s3,chair_seat,자세교정 방석,3,search,[검색엔진],2,qsGIF,1,48000,HE,0-2-1,등받이 없이도 허리가 서는 각도 | 겉면 니트 마감 | 사무실에 무난한 무채색
+GPTC001,2026-08-11T19:22:02.727,16,main,toothbrush_s3,toothbrush,전동 칫솔,3,ad,[광고],1,tIlj,3,46000,HE,1-2-0,끝을 둥글게 다듬은 미세모 | 물때가 덜 보이는 무광 마감 | 손에 감기는 굴곡 손잡이
+GPTC001,2026-08-11T19:22:02.727,17,main,keyboard_s3,keyboard,저소음 무선 키보드,3,search,[검색엔진],1,GQikf,2,47000,UT,2-1-0,절전 모드로 늘어나는 사용 기간 | 윈도우·맥 양쪽 지원 | 키캡 교체 부품 동봉
+GPTC001,2026-08-11T19:22:02.727,18,main,chair_seat_s2,chair_seat,자세교정 방석,2,peer,[가까운 지인],1,Sevwf,3,41000,UT,1-2-0,꼬리뼈에 힘이 안 실리는 홈 구조 | 커버 분리 세탁 가능 | 미끄럼 방지 바닥 처리
+GPTC001,2026-08-11T19:22:02.727,19,main,bt_speaker_s2,bt_speaker,블루투스 스피커,2,consensus,[다수 의견],1,sitZ,2,42900,UT,2-1-0,야외에서도 또렷한 중고음 | 유선 입력 단자 지원 | 생활 방수 IPX7 등급
+GPTC001,2026-08-11T19:22:02.727,20,main,laptop_stand_s2,laptop_stand,노트북 거치대,2,consensus,[다수 의견],1,IwNXH,3,38000,HE,2-1-0,목이 덜 숙여지는 각도 고정 | 두 가지 색상 구성 | 접었을 때 얇은 두께
+GPTC001,2026-08-11T19:22:02.727,21,main,windbreaker_s1,windbreaker,바람막이,1,ad,[광고],1,vYXp,1,36000,UT,1-2-0,안감을 덧댄 환절기 보온 | 야간용 반사 테이프 | 세탁기 사용 가능
+GPTC001,2026-08-11T19:22:02.727,22,main,keyboard_s2,keyboard,저소음 무선 키보드,2,expert,[전문가],1,nqJy,1,41000,HE,2-0-1,한 번 충전에 3개월 | 손목이 편한 낮은 경사 | 두 가지 색을 섞은 키캡
+GPTC001,2026-08-11T19:22:02.727,23,main,toothbrush_s2,toothbrush,전동 칫솔,2,expert,[전문가],1,AdQqZ,3,39000,UT,2-1-0,치아 사이까지 파고드는 모 배열 | 여행용 케이스 포함 | 1년 무상 A/S
+GPTC001,2026-08-11T19:22:02.727,24,main,keyboard_s1,keyboard,저소음 무선 키보드,1,ad,[광고],1,xLmI,2,34000,UT,1-2-0,도서관에서도 눈치 안 보이는 타건음 | 키캡 교체 부품 동봉 | 윈도우·맥 양쪽 지원
+GPTC001,2026-08-11T19:22:02.727,25,main,bt_speaker_s2,bt_speaker,블루투스 스피커,2,peer,[가까운 지인],2,sitZ,2,42900,UT,2-1-0,야외에서도 또렷한 중고음 | 유선 입력 단자 지원 | 생활 방수 IPX7 등급
+GPTC001,2026-08-11T19:22:02.727,26,main,chair_seat_s1,chair_seat,자세교정 방석,1,consensus,[다수 의견],2,jrQKl,3,35000,UT,1-2-0,오래 앉아도 눌리지 않는 고밀도 폼 | 커버 분리 세탁 가능 | 2년 형태 보증
+GPTC001,2026-08-11T19:22:02.727,27,main,chair_seat_s2,chair_seat,자세교정 방석,2,expert,[전문가],2,Sevwf,3,41000,UT,1-2-0,꼬리뼈에 힘이 안 실리는 홈 구조 | 커버 분리 세탁 가능 | 미끄럼 방지 바닥 처리
+GPTC001,2026-08-11T19:22:02.727,28,main,toothbrush_s3,toothbrush,전동 칫솔,3,peer,[가까운 지인],2,tIlj,3,46000,HE,1-2-0,끝을 둥글게 다듬은 미세모 | 물때가 덜 보이는 무광 마감 | 손에 감기는 굴곡 손잡이
+GPTC001,2026-08-11T19:22:02.727,29,main,toothbrush_s1,toothbrush,전동 칫솔,1,search,[검색엔진],1,PGZiV,1,33000,HE,2-0-1,세기 5단계 조절 | 물때가 덜 보이는 무광 마감 | 손에 감기는 굴곡 손잡이
+GPTC001,2026-08-11T19:22:02.727,30,main,bt_speaker_s3,bt_speaker,블루투스 스피커,3,gpt,[ChatGPT],1,PyeWz,3,48900,HE,1-0-2,앱 없이 끝나는 초기 설정 | 겉면 패브릭 마감 | 손에 감기는 원통 형태
+GPTC001,2026-08-11T19:22:02.727,31,main,laptop_stand_s3,laptop_stand,노트북 거치대,3,ad,[광고],2,LpceQ,2,45000,HE,2-1-0,두 축으로 버티는 삼각 구조 | 책상에 어울리는 무광 마감 | 두 가지 색상 구성
+GPTC001,2026-08-11T19:22:02.727,32,main,keyboard_s3,keyboard,저소음 무선 키보드,3,gpt,[ChatGPT],2,GQikf,2,47000,UT,2-1-0,절전 모드로 늘어나는 사용 기간 | 윈도우·맥 양쪽 지원 | 키캡 교체 부품 동봉
+GPTC001,2026-08-11T19:22:02.727,33,main,windbreaker_s3,windbreaker,바람막이,3,gpt,[ChatGPT],1,tcoU,2,49000,HE,2-1-0,접어서 손바닥에 들어가는 부피 | 로고 없는 앞면 | 도심에서 입기 좋은 실루엣
+GPTC001,2026-08-11T19:22:02.727,34,main,bt_speaker_s1,bt_speaker,블루투스 스피커,1,expert,[전문가],1,zfVg,2,36900,HE,1-2-0,저음이 두껍게 깔리는 소리 | 네 가지 색상 구성 | 손에 감기는 원통 형태
+GPTC001,2026-08-11T19:22:02.727,35,main,laptop_stand_s2,laptop_stand,노트북 거치대,2,search,[검색엔진],2,IwNXH,3,38000,HE,2-1-0,목이 덜 숙여지는 각도 고정 | 두 가지 색상 구성 | 접었을 때 얇은 두께
+GPTC001,2026-08-11T19:22:02.727,36,main,toothbrush_s2,toothbrush,전동 칫솔,2,gpt,[ChatGPT],2,AdQqZ,3,39000,UT,2-1-0,치아 사이까지 파고드는 모 배열 | 여행용 케이스 포함 | 1년 무상 A/S

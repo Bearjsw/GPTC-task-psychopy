@@ -1,0 +1,13 @@
+{
+  "participant": "DEMO01",
+  "experiment": "GPTC_task",
+  "date": "2026-08-11_21h54.39",
+  "font": "NanumGothic",
+  "excluded": [
+    "bt_speaker",
+    "windbreaker"
+  ],
+  "completed": true,
+  "n_practice": 2,
+  "n_trials": 36
+}
