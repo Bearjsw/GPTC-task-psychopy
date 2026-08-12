@@ -37,8 +37,8 @@ def main():
     seed = int(sys.argv[1]) if len(sys.argv) > 1 else 7
     rng = random.Random(seed)
 
-    sources, categories, details = T.load_stimuli()
-    all_sets = T.build_sets(categories, details, rng)
+    sources, categories, details, brands = T.load_stimuli()
+    all_sets = T.build_sets(categories, details, brands, rng)
 
     codes = sorted({c["category_code"] for c in categories})
     excluded = rng.sample(codes, CFG["n_excluded"])

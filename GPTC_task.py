@@ -34,7 +34,6 @@ import io
 import json
 import random
 import re
-import string
 from datetime import datetime
 
 from psychopy import core, data, event, gui, visual
@@ -62,7 +61,6 @@ CFG = {
     "n_practice":           2,
     "n_extra_details":      2,      # 결정 국면에서 특징 아래 붙는 줄 수
     "price_step":           1000,
-    "brand_lengths":       (4, 5),  # 브랜드명 글자 수
 
     # 무작위화 제약
     "max_run":              2,      # 같은 정보원 / 같은 제품군 최대 연속 횟수
@@ -259,34 +257,6 @@ def has_batchim(word):
     return ch.lower() in "lmnrg"
 
 
-BRAND_BLOCKLIST = {
-    "ass", "fuck", "shit", "cock", "dick", "cunt", "nigg", "rape",
-    "kkk", "sex", "piss", "damn", "hell", "nazi",
-}
-
-
-def make_brand_name(rng, used):
-    """알파벳 4~5자, 대소문자 섞인 이름 하나.
-
-    발음 가능한 조어를 쓰면 음상이 선호를 밀 수 있어서 무작위 문자열을 쓴다.
-    """
-    used_lower = {u.lower() for u in used}
-    while True:
-        n = rng.choice(CFG["brand_lengths"])
-        s = "".join(rng.choice(string.ascii_letters) for _ in range(n))
-        low = s.lower()
-        if low in used_lower:
-            continue
-        if any(bad in low for bad in BRAND_BLOCKLIST):
-            continue
-        if re.search(r"(.)\1\1", low):
-            continue
-        if len(set(low)) < 3:
-            continue
-        used.add(s)
-        return s
-
-
 def read_csv(name):
     path = os.path.join(STIM_DIR, name)
     if not os.path.exists(path):
@@ -307,6 +277,7 @@ def read_csv(name):
 def load_stimuli():
     sources = read_csv("sources.csv")
     categories = read_csv("categories.csv")
+    brands = [r["brand"].strip() for r in read_csv("brands.csv") if r["brand"].strip()]
 
     details = {}
     for r in read_csv("details.csv"):
@@ -323,10 +294,18 @@ def load_stimuli():
                 "%s의 특징이 %d개뿐입니다. 최소 %d개가 있어야 합니다."
                 % (code, len(pool), need)
             )
-    return sources, categories, details
+
+    need_brands = len(categories) * CFG["sets_per_category"] * CFG["candidates_per_set"]
+    if len(brands) < need_brands:
+        raise SystemExit(
+            "브랜드명이 %d개뿐입니다. 제품군 %d개를 채우려면 %d개가 있어야 합니다. "
+            "tools_make_brands.py로 더 뽑으세요."
+            % (len(brands), len(categories), need_brands)
+        )
+    return sources, categories, details, brands
 
 
-def build_sets(categories, details, rng):
+def build_sets(categories, details, brands, rng):
     """제품군마다 후보 세트를 만든다.
 
     CSV가 주는 것은 제품군과 특징 풀뿐이다. 브랜드명, 브랜드와 특징의 짝,
@@ -337,7 +316,9 @@ def build_sets(categories, details, rng):
     후보가 추천되든 결정 국면의 가격이 같고, 추천과 가격이 엉키지 않는다.
     """
     n_cand = CFG["candidates_per_set"]
-    used_brands = set()
+    # 검수된 목록에서 참가자마다 다르게 뽑아 쓴다. 한 참가자 안에서는 안 겹친다.
+    bag = list(brands)
+    rng.shuffle(bag)
     sets = []
 
     for cat in sorted(categories, key=lambda c: c["category_code"]):
@@ -349,9 +330,9 @@ def build_sets(categories, details, rng):
 
         for set_id in range(1, CFG["sets_per_category"] + 1):
             picked = rng.sample(pool, n_cand)               # 세트 안에서 특징 안 겹치게
-            brands = [make_brand_name(rng, used_brands) for _ in range(n_cand)]
-            rng.shuffle(brands)                             # 이름과 특징의 짝을 섞는다
-            cands = list(zip(brands, picked))
+            picked_brands = [bag.pop() for _ in range(n_cand)]
+            rng.shuffle(picked_brands)                      # 이름과 특징의 짝을 섞는다
+            cands = list(zip(picked_brands, picked))
             rng.shuffle(cands)                              # 화면 순서도 섞는다
 
             sets.append({
@@ -905,7 +886,7 @@ def ask_participant(categories):
 
 
 def main():
-    sources, categories, details = load_stimuli()
+    sources, categories, details, brands = load_stimuli()
     info = ask_participant(categories)
     pid = str(info["참가자 ID"]).strip()
 
@@ -916,7 +897,7 @@ def main():
     excluded = [kr_to_code[info["제외 제품군 %d" % i]]
                 for i in range(1, CFG["n_excluded"] + 1)]
 
-    all_sets = build_sets(categories, details, rng)
+    all_sets = build_sets(categories, details, brands, rng)
     main_sets = [cs for cs in all_sets if cs["category_code"] not in excluded]
     practice_sets = [cs for cs in all_sets if cs["category_code"] in excluded]
     practice, trials = build_trials(main_sets, practice_sets, sources, rng)

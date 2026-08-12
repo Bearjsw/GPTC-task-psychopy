@@ -54,9 +54,9 @@ def check(condition, message):
         FAILS.append(message)
 
 
-def run_one(seed, sources, categories, details):
+def run_one(seed, sources, categories, details, brands):
     rng = random.Random(seed)
-    all_sets = T.build_sets(categories, details, rng)
+    all_sets = T.build_sets(categories, details, brands, rng)
 
     codes = sorted({c["category_code"] for c in categories})
     excluded = rng.sample(codes, CFG["n_excluded"])
@@ -114,8 +114,13 @@ def run_one(seed, sources, categories, details):
 
     brands = [b for cs in all_sets for b in cs["brands"]]
     check(len(set(brands)) == len(brands), "참가자 안에서 브랜드명 중복")
-    check(all(4 <= len(b) <= 5 and b.isalpha() for b in brands),
-          "알파벳 4~5자가 아닌 브랜드명")
+    check(all(b.isalpha() and 3 <= len(b) <= 10 for b in brands),
+          "알파벳이 아니거나 길이가 이상한 브랜드명")
+    import re as _re
+    check(not any(_re.search(r"[bcdfgklmnprstvwxyz]{3}", b.lower()) for b in brands),
+          "자음이 3개 넘게 붙은 브랜드명 (읽기 어렵다)")
+    check(all(set(b.lower()) & set("aeiou") for b in brands),
+          "모음이 없는 브랜드명")
 
     for t in trials:
         lines = [t["rec_detail"]] + t["extra"]
@@ -144,13 +149,15 @@ def run_one(seed, sources, categories, details):
 
 def main():
     n = int(sys.argv[1]) if len(sys.argv) > 1 else 200
-    sources, categories, details = T.load_stimuli()
+    sources, categories, details, brands = T.load_stimuli()
 
     kept = len(categories) - CFG["n_excluded"]
     expected = kept * CFG["sets_per_category"] * CFG["repeats_per_set"]
     print("정보원 %d종, 제품군 %d개 (제외 %d -> %d개 사용)"
           % (len(sources), len(categories), CFG["n_excluded"], kept))
     print("특징 풀   : 제품군당 %s개" % sorted({len(v) for v in details.values()}))
+    print("브랜드 풀 : %d개 (필요 %d개)"
+          % (len(brands), len(categories) * CFG["sets_per_category"] * CFG["candidates_per_set"]))
     print("예상 시행 : %d x %d세트 x %d회 = %d시행, 정보원당 %.1f"
           % (kept, CFG["sets_per_category"], CFG["repeats_per_set"],
              expected, expected / len(sources)))
@@ -164,7 +171,7 @@ def main():
     check(max(highs) <= 50000, "50,000원 초과 범위가 있음")
     check(all(c["major_class"] != "FOOD" for c in categories), "FOOD가 남아 있음")
 
-    lags = [run_one(seed, sources, categories, details) for seed in range(n)]
+    lags = [run_one(seed, sources, categories, details, brands) for seed in range(n)]
     print("\n가상 참가자 %d명 배치 생성 완료" % n)
     print("같은 세트 재등장 최소 간격: 중앙값 %d, 최소 %d 시행"
           % (sorted(lags)[len(lags) // 2], min(lags)))
