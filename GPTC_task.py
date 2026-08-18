@@ -45,8 +45,8 @@ from psychopy import core, data, event, gui, visual
 
 CFG = {
     # 시행 타이밍 (초)
-    "info_dur":             5.0,    # 정보 국면 자극을 띄워 두는 시간
-    "decision_dur":         4.0,    # 결정 국면 자극을 띄워 두는 시간
+    "info_dur":             7.5,    # 정보 국면 자극을 띄워 두는 시간
+    "decision_dur":         6.0,    # 결정 국면 자극을 띄워 두는 시간
     "fix_min":              0.5,    # 고정점 지터 범위
     "fix_max":              1.5,
     "response_timeout":    12.0,    # 무응답 상한. 넘기면 결측으로 남기고 넘어간다
@@ -58,7 +58,7 @@ CFG = {
     "sets_per_category":    3,
     "candidates_per_set":   3,      # 정보 국면에 늘어놓는 후보 수
     "repeats_per_set":      2,      # 같은 세트를 몇 번 보여 줄지 (정보원만 바뀜)
-    "n_practice":           2,
+    "n_practice":           4,      # 첫 시행 적응이 안 된다는 보고가 있어 2에서 늘렸다
     "n_extra_details":      2,      # 결정 국면에서 특징 아래 붙는 줄 수
     "price_step":           1000,
 
@@ -166,7 +166,7 @@ TXT_KEYS = """응답 방법
 
 계속하려면 스페이스바를 누르세요."""
 
-TXT_PRACTICE = """먼저 연습을 두 번 하겠습니다.
+TXT_PRACTICE = """먼저 연습을 네 번 하겠습니다.
 
 연습에 나오는 제품은 본 과제에 나오지 않습니다.
 
@@ -174,7 +174,7 @@ TXT_PRACTICE = """먼저 연습을 두 번 하겠습니다.
 
 TXT_TASK_START = """연습이 끝났습니다.
 
-지금부터 본 과제입니다. 약 10분 걸립니다.
+지금부터 본 과제입니다. 약 13분 걸립니다.
 중간에 쉬는 구간이 한 번 있습니다.
 
 계속하려면 스페이스바를 누르세요."""

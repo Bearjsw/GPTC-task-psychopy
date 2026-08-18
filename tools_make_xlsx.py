@@ -157,7 +157,7 @@ def main():
         ("총 시행", trials, "%d x %d x %d" % (kept, sets_per, reps)),
         ("정보원 수", n_src, ""),
         ("정보원당 시행", trials // n_src, ""),
-        ("연습 시행", 2, "제외된 제품군을 쓴다"),
+        ("연습 시행", 4, "제외된 제품군을 쓴다"),
         ("제품군당 문구", len(details) // n_cat, "실용 3 + 감성 3"),
         ("가격 범위", "%s ~ %s원" % (
             format(min(int(c["price_low"]) for c in cats), ","),
