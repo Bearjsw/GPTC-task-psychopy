@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>GPTC 과제 — 기존판 (제품군 8개)</title>
+    <link rel="stylesheet" href="./lib/jquery-ui.min.css">
+    <link rel="stylesheet" href="./lib/psychojs-2026.2.1.css">
+    <style>
+      body { margin: 0; background: #000; }
+      #root { width: 100vw; height: 100vh; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="./lib/jquery.min.js"></script>
+    <script src="./lib/jquery-ui.min.js"></script>
+    <script src="./lib/preloadjs.min.js"></script>
+    <script type="module">
+      import { runTask } from "./gptc_task.js";
+      window.psychoJS = runTask("classic");
+    </script>
+  </body>
+</html>
