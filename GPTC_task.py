@@ -54,7 +54,6 @@ CFG = {
     "intro_fix_dur":        2.0,    # 과제 시작 직전 고정점
 
     # 설계
-    "n_excluded":           2,      # 사전 설문에서 관심도가 낮아 빼는 제품군 수
     "sets_per_category":    3,
     "candidates_per_set":   3,      # 정보 국면에 늘어놓는 후보 수
     "repeats_per_set":      2,      # 같은 세트를 몇 번 보여 줄지 (정보원만 바뀜)
@@ -174,7 +173,7 @@ TXT_PRACTICE = """먼저 연습을 네 번 하겠습니다.
 
 TXT_TASK_START = """연습이 끝났습니다.
 
-지금부터 본 과제입니다. 약 13분 걸립니다.
+지금부터 본 과제입니다. 약 15분 걸립니다.
 중간에 쉬는 구간이 한 번 있습니다.
 
 계속하려면 스페이스바를 누르세요."""
@@ -274,10 +273,26 @@ def read_csv(name):
 # ─────────────────────────────────────────────
 
 
+def sets_for(cat):
+    """이 제품군에서 만들 세트 수. 연습 제품군 하나로 연습 시행을 다 채운다."""
+    return CFG["n_practice"] if cat["block"] == "practice" \
+        else CFG["sets_per_category"]
+
+
 def load_stimuli():
     sources = read_csv("sources.csv")
-    categories = read_csv("categories.csv")
     brands = [r["brand"].strip() for r in read_csv("brands.csv") if r["brand"].strip()]
+
+    categories = []
+    for r in read_csv("categories.csv"):
+        cat = {k: (v or "").strip() for k, v in r.items()}
+        cat["block"] = (cat.get("block") or "main").lower()
+        if cat["block"] not in ("main", "practice"):
+            raise SystemExit("block은 main 또는 practice여야 합니다: %s" % cat["block"])
+        categories.append(cat)
+
+    if not any(c["block"] == "practice" for c in categories):
+        raise SystemExit("연습에 쓸 제품군이 없습니다. categories.csv의 block을 보세요.")
 
     details = {}
     for r in read_csv("details.csv"):
@@ -295,7 +310,7 @@ def load_stimuli():
                 % (code, len(pool), need)
             )
 
-    need_brands = len(categories) * CFG["sets_per_category"] * CFG["candidates_per_set"]
+    need_brands = sum(sets_for(c) for c in categories) * CFG["candidates_per_set"]
     if len(brands) < need_brands:
         raise SystemExit(
             "브랜드명이 %d개뿐입니다. 제품군 %d개를 채우려면 %d개가 있어야 합니다. "
@@ -328,7 +343,7 @@ def build_sets(categories, details, brands, rng):
             raise SystemExit("details.csv에 %s의 특징이 없습니다." % code)
         low, high = int(cat["price_low"]), int(cat["price_high"])
 
-        for set_id in range(1, CFG["sets_per_category"] + 1):
+        for set_id in range(1, sets_for(cat) + 1):
             picked = rng.sample(pool, n_cand)               # 세트 안에서 특징 안 겹치게
             picked_brands = [bag.pop() for _ in range(n_cand)]
             rng.shuffle(picked_brands)                      # 이름과 특징의 짝을 섞는다
@@ -339,6 +354,7 @@ def build_sets(categories, details, brands, rng):
                 "set_key": "%s_s%d" % (code, set_id),
                 "category_code": code,
                 "category_kr": cat["category_kr"].strip(),
+                "block": cat["block"],
                 "set_id": set_id,
                 "brands": [b for b, _ in cands],
                 "details": [d[1] for _, d in cands],
@@ -379,16 +395,48 @@ def assign_rec_positions(set_keys, rng):
     return dict(zip(keys, positions))
 
 
+def deal_round_robin(keys, bag, reps, rng):
+    """같은 정보원이 한 세트에 두 번 안 들어가게 bag을 keys에 나눠 준다.
+
+    같은 정보원끼리 붙여 놓고 한 장씩 돌려 가며 나눈다. 한 정보원의 장수가
+    세트 수를 안 넘으면 같은 세트로 두 장이 갈 수 없다.
+    """
+    counts = {}
+    for code in bag:
+        counts[code] = counts.get(code, 0) + 1
+    if max(counts.values()) > len(keys):
+        return None
+
+    order = sorted(counts, key=lambda c: (-counts[c], rng.random()))
+    flat = [c for c in order for _ in range(counts[c])]
+    seats = list(keys)
+    rng.shuffle(seats)
+
+    out = {k: [] for k in keys}
+    for i, code in enumerate(flat):
+        out[seats[i % len(seats)]].append(code)
+    for k in keys:
+        if len(out[k]) != reps or len(set(out[k])) != reps:
+            return None
+        rng.shuffle(out[k])
+    return out
+
+
 def assign_sources(rec_positions, source_codes, rng, max_tries=20000):
     """세트마다 서로 다른 정보원을 repeats_per_set개 배정한다.
 
-    추천 위치가 같은 세트들을 한 묶음으로 보고, 묶음 안에서 정보원 순열을
-    반복 수만큼 겹치지 않게 뽑는다. 그러면 정보원마다 위치 1·2·3을 같은 수씩
-    맡고, 전체를 합치면 시행 수도 고르게 떨어진다.
+    추천 위치가 같은 세트들을 한 묶음으로 본다. 묶음마다 정보원별 배정 수를
+    먼저 정하고, 그 수만큼을 세트에 흩는다. 배정 수를 정할 때 전체 합이 정보원마다
+    똑같이 떨어지도록 남는 몫을 여유가 많은 정보원부터 준다. 그래서 위치 1·2·3이
+    고르게 나뉘면서 전체 시행 수도 정보원마다 같아진다.
+
+    묶음 크기가 정보원 수의 배수이던 시절에는 순열을 돌려도 균형이 맞았다.
+    제품군이 21개로 늘면서 묶음이 7개가 되어 그 방법으로는 6~9시행까지 벌어진다.
     """
     codes = list(source_codes)
+    n_src = len(codes)
     reps = CFG["repeats_per_set"]
-    if reps > len(codes):
+    if reps > n_src:
         raise SystemExit("반복 수가 정보원 수보다 많으면 같은 세트에 같은 정보원이 겹칩니다.")
 
     by_pos = {}
@@ -397,23 +445,46 @@ def assign_sources(rec_positions, source_codes, rng, max_tries=20000):
     for keys in by_pos.values():
         keys.sort()
 
+    positions = sorted(by_pos)
+    slots = {pos: len(by_pos[pos]) * reps for pos in positions}
+    total = sum(slots.values())
+    if total % n_src:
+        raise SystemExit(
+            "시행 %d개가 정보원 %d종으로 안 나뉩니다. 제품군 수나 반복 수를 보세요."
+            % (total, n_src)
+        )
+    target = total // n_src
+
     for _ in range(max_tries):
-        assignment, ok = {}, True
-        for pos in sorted(by_pos):
-            keys = list(by_pos[pos])
-            rng.shuffle(keys)
-            perms = []
-            for _ in range(reps):
-                p = list(codes)
-                rng.shuffle(p)
-                perms.append(p)
-            if any(len({p[i] for p in perms}) != reps for i in range(len(codes))):
-                ok = False
+        left = {c: target for c in codes}
+        quota = {c: {} for c in codes}
+        ok = True
+
+        for pos in positions:
+            base, rem = divmod(slots[pos], n_src)
+            after = {c: left[c] - base for c in codes}
+            order = sorted(codes, key=lambda c: (-after[c], rng.random()))
+            extra = set(order[:rem])
+            for c in codes:
+                q = base + (1 if c in extra else 0)
+                quota[c][pos] = q
+                left[c] -= q
+                if left[c] < 0:
+                    ok = False
+        if not ok or any(left[c] for c in codes):
+            continue
+
+        assignment = {}
+        for pos in positions:
+            bag = [c for c in codes for _ in range(quota[c][pos])]
+            placed = deal_round_robin(by_pos[pos], bag, reps, rng)
+            if placed is None:
+                assignment = None
                 break
-            for i, key in enumerate(keys):
-                assignment[key] = [p[i % len(codes)] for p in perms]
-        if ok:
+            assignment.update(placed)
+        if assignment is not None:
             return assignment
+
     raise SystemExit("정보원 배정 조건을 만족하는 조합을 찾지 못했습니다.")
 
 
@@ -846,37 +917,23 @@ def run_trial(disp, trial, number, exp, clock):
 # ─────────────────────────────────────────────
 
 
-def ask_participant(categories):
-    """참가자 ID와 사전 설문에서 뺄 제품군을 받는다.
+def ask_participant():
+    """참가자 ID, 연령, 성별만 받는다.
 
-    관심도는 구글 설문에서 받는다. 실험자가 그 응답을 보고 점수가 가장 낮은
-    제품군 2개를 여기서 고른다.
+    제품군을 빼지 않는다. 사전 설문의 제품군 관심도는 과제 구성에 넣지 않고
+    분석에서 공변량으로 쓴다.
     """
-    names = [c["category_kr"] for c in categories]
     info = {"참가자 ID": "", "연령": "", "성별": ["여", "남", "기타/무응답"]}
-    for i in range(1, CFG["n_excluded"] + 1):
-        info["제외 제품군 %d" % i] = list(names)
-
-    order = ["참가자 ID", "연령", "성별"] + \
-            ["제외 제품군 %d" % i for i in range(1, CFG["n_excluded"] + 1)]
+    order = ["참가자 ID", "연령", "성별"]
 
     if AUTOPILOT:
-        rng = random.Random(20260811)
-        picked = rng.sample(names, CFG["n_excluded"])
-        info = {"참가자 ID": "DEMO01", "연령": "23", "성별": "여"}
-        for i, name in enumerate(picked, start=1):
-            info["제외 제품군 %d" % i] = name
-        return info
+        return {"참가자 ID": "DEMO01", "연령": "23", "성별": "여"}
 
     dlg = gui.DlgFromDict(dictionary=info, title="GPTC 과제", order=order)
     if not dlg.OK:
         core.quit()
     if not str(info["참가자 ID"]).strip():
         raise SystemExit("참가자 ID를 입력해야 합니다.")
-
-    picked = [info["제외 제품군 %d" % i] for i in range(1, CFG["n_excluded"] + 1)]
-    if len(set(picked)) != len(picked):
-        raise SystemExit("제외 제품군을 서로 다르게 골라 주세요: %s" % picked)
     return info
 
 
@@ -887,19 +944,15 @@ def ask_participant(categories):
 
 def main():
     sources, categories, details, brands = load_stimuli()
-    info = ask_participant(categories)
+    info = ask_participant()
     pid = str(info["참가자 ID"]).strip()
 
     # 참가자 ID로 시드를 고정한다. 같은 참가자를 다시 돌리면 같은 배치가 나온다.
     rng = random.Random("%s|%s" % (EXP_NAME, pid))
 
-    kr_to_code = {c["category_kr"]: c["category_code"] for c in categories}
-    excluded = [kr_to_code[info["제외 제품군 %d" % i]]
-                for i in range(1, CFG["n_excluded"] + 1)]
-
     all_sets = build_sets(categories, details, brands, rng)
-    main_sets = [cs for cs in all_sets if cs["category_code"] not in excluded]
-    practice_sets = [cs for cs in all_sets if cs["category_code"] in excluded]
+    main_sets = [cs for cs in all_sets if cs["block"] == "main"]
+    practice_sets = [cs for cs in all_sets if cs["block"] == "practice"]
     practice, trials = build_trials(main_sets, practice_sets, sources, rng)
 
     os.makedirs(DATA_DIR, exist_ok=True)
@@ -909,7 +962,7 @@ def main():
     exp = data.ExperimentHandler(
         name=EXP_NAME,
         extraInfo={"participant": pid, "age": info["연령"], "sex": info["성별"],
-                   "excluded": "|".join(excluded), "date": stamp},
+                   "date": stamp},
         dataFileName=base,
         savePickle=False,
         saveWideText=False,   # finally에서 직접 한 번만 쓴다
@@ -967,7 +1020,7 @@ def main():
         pass
     finally:
         meta = {"participant": pid, "experiment": EXP_NAME, "date": stamp,
-                "font": font, "excluded": excluded, "completed": completed,
+                "font": font, "completed": completed,
                 "n_practice": len(practice), "n_trials": len(trials)}
         with io.open(base + "_meta.json", "w", encoding="utf-8") as fh:
             fh.write(json.dumps(meta, ensure_ascii=False, indent=2))

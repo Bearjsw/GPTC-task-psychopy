@@ -143,21 +143,21 @@ def main():
 
     # ── 4. 설계 요약 ────────────────────────────────────────
     ws = wb.create_sheet("설계 요약")
-    n_cat, n_ex = len(cats), 2
+    n_cat, n_ex = len(cats), 1
     kept = n_cat - n_ex
     sets_per, reps, n_src = 3, 2, len(sources)
     trials = kept * sets_per * reps
     rows = [
         ("항목", "값", "설명"),
         ("제품군 수", n_cat, "categories.csv 행 수"),
-        ("제외 제품군", n_ex, "사전 설문 관심도가 가장 낮은 것"),
+        ("연습 전용 제품군", n_ex, "categories.csv의 block이 practice인 것"),
         ("과제에 쓰는 제품군", kept, ""),
         ("제품군당 세트", sets_per, "세트 하나가 후보 3개"),
         ("세트 반복", reps, "같은 세트를 두 번, 정보원만 바꿔서"),
         ("총 시행", trials, "%d x %d x %d" % (kept, sets_per, reps)),
         ("정보원 수", n_src, ""),
         ("정보원당 시행", trials // n_src, ""),
-        ("연습 시행", 4, "제외된 제품군을 쓴다"),
+        ("연습 시행", 4, "연습 전용 제품군을 쓴다"),
         ("제품군당 문구", len(details) // n_cat, "실용 3 + 감성 3"),
         ("가격 범위", "%s ~ %s원" % (
             format(min(int(c["price_low"]) for c in cats), ","),

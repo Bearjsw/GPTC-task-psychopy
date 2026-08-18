@@ -40,10 +40,8 @@ def main():
     sources, categories, details, brands = T.load_stimuli()
     all_sets = T.build_sets(categories, details, brands, rng)
 
-    codes = sorted({c["category_code"] for c in categories})
-    excluded = rng.sample(codes, CFG["n_excluded"])
-    main_sets = [cs for cs in all_sets if cs["category_code"] not in excluded]
-    practice_sets = [cs for cs in all_sets if cs["category_code"] in excluded]
+    main_sets = [cs for cs in all_sets if cs["block"] == "main"]
+    practice_sets = [cs for cs in all_sets if cs["block"] == "practice"]
     _, trials = T.build_trials(main_sets, practice_sets, sources, rng)
 
     by_set = {}
@@ -51,8 +49,9 @@ def main():
         by_set.setdefault(t["set_key"], []).append((i + 1, t))
     pair = by_set[sorted(by_set)[0]]
 
-    kr = {c["category_code"]: c["category_kr"] for c in categories}
-    print("\n제외 제품군: %s" % ", ".join(kr[c] for c in excluded))
+    prac = [c["category_kr"] for c in categories if c["block"] == "practice"]
+    print("\n본 과제 제품군 %d개. 연습 전용: %s" % (len(main_sets) //
+          CFG["sets_per_category"], ", ".join(prac)))
     print("아래 두 시행은 같은 세트다. 정보원 라벨 말고는 글자가 같아야 한다.\n")
 
     for number, t in pair:
