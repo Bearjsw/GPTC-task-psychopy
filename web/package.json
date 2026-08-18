@@ -1,0 +1,6 @@
+{
+  "name": "gptc-task-web",
+  "private": true,
+  "type": "module",
+  "description": "web/ 아래 .js 를 ES 모듈로 읽게 한다. node 가 package.json 을 못 찾으면 문법을 보고 넘겨 주지만, 상위 폴더에 type 없는 package.json 이 하나라도 있으면 CommonJS 로 잡아 import 가 깨진다. 브라우저는 이 파일과 무관하다."
+}
