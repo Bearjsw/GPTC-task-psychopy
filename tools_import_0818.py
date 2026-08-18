@@ -39,9 +39,12 @@ if hasattr(sys.stdout, "reconfigure"):
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SRC_STIM = os.path.join(ROOT, "stim")
 OUT_STIM = os.path.join(ROOT, "stim_0818")
-DEFAULT_XLSX = os.path.join(
-    os.path.expanduser("~"), "Downloads", "0818_product_list.xlsx"
-)
+# 폴더 안에 둔 사본을 먼저 본다. 없으면 내려받기 폴더를 본다.
+XLSX_NAME = "0818_product_list.xlsx"
+XLSX_CANDIDATES = [
+    os.path.join(ROOT, XLSX_NAME),
+    os.path.join(os.path.expanduser("~"), "Downloads", XLSX_NAME),
+]
 
 # 연습 전용 제품군. 본 과제 21개에 안 들어가야 한다.
 # 특징 6개는 stim/details.csv 의 windbreaker 행을 그대로 가져왔다.
@@ -133,9 +136,15 @@ def write_csv(name, header, rows):
 
 
 def main():
-    xlsx = sys.argv[1] if len(sys.argv) > 1 else DEFAULT_XLSX
-    if not os.path.exists(xlsx):
-        raise SystemExit("엑셀을 찾을 수 없습니다: %s" % xlsx)
+    if len(sys.argv) > 1:
+        xlsx = sys.argv[1]
+    else:
+        xlsx = next((p for p in XLSX_CANDIDATES if os.path.exists(p)), None)
+    if not xlsx or not os.path.exists(xlsx):
+        raise SystemExit(
+            "엑셀을 찾을 수 없습니다. 아래 중 한 곳에 두거나 경로를 넘기세요.\n  %s"
+            % "\n  ".join(XLSX_CANDIDATES)
+        )
 
     items = read_xlsx(xlsx)
     if any(it["code"] == PRACTICE["code"] for it in items):
